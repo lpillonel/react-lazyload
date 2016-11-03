@@ -255,4 +255,5 @@ LazyLoad.defaultProps = {
 
 import decorator from './decorator';
 export const lazyload = decorator;
+export const lazyloadHandler = finalLazyLoadHandler;
 export default LazyLoad;
