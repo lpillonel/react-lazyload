@@ -23,9 +23,7 @@ class LazyLoad extends Component {
     constructor(props) {
         super(props);
 
-        this.parent;
         this.visible = false;
-
     }
 
     componentDidMount() {
@@ -91,7 +89,7 @@ class LazyLoad extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return this.visible || ( ! this.visible && nextProps.placeholder !== this.props.placeholder);
+        return this.visible || (! this.visible && nextProps.placeholder !== this.props.placeholder);
     }
 
     componentWillUnmount() {
@@ -115,6 +113,9 @@ class LazyLoad extends Component {
         if (listeners.length === 0) {
             off(window, 'resize', finalLazyLoadHandler);
             off(window, 'scroll', finalLazyLoadHandler);
+
+            // Unasign the handler
+            finalLazyLoadHandler = undefined;
         }
     }
 
@@ -141,6 +142,7 @@ class LazyLoad extends Component {
         const offsets = Array.isArray(component.props.offset) ?
         component.props.offset :
         [component.props.offset, component.props.offset]; // Be compatible with previous API
+
 
         return (offsetTop - offsets[0] <= intersectionHeight) &&
         (offsetTop + height + offsets[1] >= 0);
@@ -221,7 +223,7 @@ class LazyLoad extends Component {
 
         // Remove `once` component in listeners
         this.purgePending();
-    };
+    }
 
     render() {
         return this.visible ?
